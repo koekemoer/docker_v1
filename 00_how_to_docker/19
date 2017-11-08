@@ -1,0 +1,1 @@
+docker run -it --rm --name my-running-script -p 3000:3000 -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:2 python:slim your-daemon-or-script.py
