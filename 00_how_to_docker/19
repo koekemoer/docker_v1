@@ -1,2 +1,28 @@
-docker run -dt --name Abathur -v $HOME/Abathur:/root -p 3000:3000 python:2-slim
-docker exec Abathur pip install flask
+#!/bin/bash
+# 19. Launch a container name Abathur. It will be a Python container,
+# 2-slim version, its /root folder will be bound to a HOME folder
+# on your host, and its 3000 port will be bound to the 3000 port
+# of your virtual machine.
+# http://flask.pocoo.org/docs/0.12/quickstart/
+flask_python_script=" pip install flask && echo '
+from flask import Flask
+app = Flask(__name__)
+@app.route(\"/\")
+def hello_world():
+    return (\"<h1>Hello World<h1>\")
+if (__name__ == \"__main__\"):
+    app.run(debug=True,host=\"0.0.0.0\", port=3000)
+'  > /root/hello.py
+FLASK_APP=/root/hello.py
+python /root/hello.py
+"
+IPAddress_machine_Char=$(docker-machine ip Char)
+open "http://$IPAddress_machine_Char:3000"
+docker run -d -it --rm --name Abathur -v "$HOME/Abathur":/root -p 3000:3000 \
+python:2-slim /bin/sh -c "$flask_python_script"
+# Test 1 :: Passed 50%
+# Fix ?
+    # - place the flag '--rm' in the command respectfully
+        # => docker run -it --rm --name ...
+# Test 2 :: Passed 100%
+# Test 3 :: Passed 100%

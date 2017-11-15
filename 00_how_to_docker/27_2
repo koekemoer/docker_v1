@@ -1,0 +1,28 @@
+#!/bin/bash 
+
+    service_id=$(docker service inspect -f "{{ .ID }}" engineering-bay)
+    counter=0
+    service_one=$(docker service ps $service_id | grep engineering-bay.1 | grep Running | cut -d" " -f1)
+    service_two=$(docker service ps $service_id | grep engineering-bay.2 | grep Running | cut -d" " -f1)
+    logs=""
+    COUNTER=0
+    while [  $COUNTER -lt 1000 ]; do
+        echo The counter is $COUNTER
+        if [[ $service_one == "" ]]; then
+            if [[ $service_two == "" ]]; then
+                echo "{-} No Service currently running..."
+            else
+                logs=$(docker service logs $service_two)
+            fi
+        else
+            logs=$(docker service logs $service_one)
+        fi
+        echo "$logs"
+        if [[ $logs == "" ]]; then
+            echo "{-} No logs..."
+        else
+            echo $logs
+            break
+        fi
+        let COUNTER=COUNTER+1
+    done

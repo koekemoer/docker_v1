@@ -1,0 +1,2 @@
+docker swarm init --advertise-addr 192.168.99.100
+#Swarm initialized: current node (1uu6dnwz67nz3akqt00ften82) is now a manager.

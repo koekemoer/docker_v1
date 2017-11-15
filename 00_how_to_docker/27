@@ -1,0 +1,26 @@
+#docker service logs $(docker service ps engineering-bay) engineering-bay
+#Get the real-time logs of one the tasks of the engineering-bay service.
+#!/bin/bash
+
+service_id=$(docker service inspect -f "{{ .ID }}" engineering-bay)
+counter=0
+service_one=$(docker service ps $service_id | grep engineering-bay.1 | grep Running | cut -d" " -f1)
+service_two=$(docker service ps $service_id | grep engineering-bay.2 | grep Running | cut -d" " -f1)
+logs=""
+
+if [[ $service_one == "" ]]; then
+    if [[ $service_two == "" ]]; then
+        echo "{-} No Service currently running..."
+    else
+        logs=$(docker service logs $service_two)
+    fi
+else
+    logs=$(docker service logs $service_one)
+fi
+echo "$logs"
+if [[ $logs == "" ]]; then
+    echo "{-} No logs..."
+else
+    echo $logs
+    break
+fi
