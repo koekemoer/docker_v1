@@ -1,1 +1,1 @@
-docker run -it --rm debian /bin/sh -c "apt update && apt upgrade -y && apt install gcc git -y"
+docker run -it --rm debian /bin/sh -c "apt update -y && apt upgrade -y && apt install gcc git -y"
