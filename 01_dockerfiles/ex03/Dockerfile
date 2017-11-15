@@ -36,3 +36,17 @@ VOLUME ["/data"]
 EXPOSE 22 3000
 ENTRYPOINT ["/app/gogs/docker/start.sh"]
 CMD ["/bin/s6-svscan", "/app/gogs/docker/s6/"]
+
+# #docker build -t gogs .
+# #docker run -d --name Gogs -p 3000:3000 gogs
+# FROM golang
+# EXPOSE 3000
+# RUN adduser --disabled-login --gecos 'Gogs' git
+# RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install mysql-server -y && \
+# service mysql start && mysql -uroot -e "create database gogs"
+# USER git
+# RUN mkdir -p $GOPATH/src/github.com/gogits && cd $GOPATH/src/github.com/gogits && git clone --depth=1 -b develop https://github.com/gogits/gogs && cd gogs && go build
+# USER root
+# CMD service mysql start && su git -c "$GOPATH/src/github.com/gogits/gogs/gogs web"
+
+# https://github.com/GlThibault/Docker/blob/master/01_dockerfiles/ex03/Dockerfile
