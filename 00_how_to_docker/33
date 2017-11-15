@@ -1,2 +1,2 @@
-docker rmi `docker images`
-# docker rmi --force $(docker images -q)
+# docker rmi `docker images`
+docker rmi --force $(docker images -q)
