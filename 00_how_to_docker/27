@@ -1,2 +1,2 @@
-docker service logs --tail 1 engineering-bay | grep engineering-bay.1
-# docker service logs --follow engineering-bay
+#docker service logs --tail 1 engineering-bay | grep engineering-bay.1
+docker service logs --follow engineering-bay

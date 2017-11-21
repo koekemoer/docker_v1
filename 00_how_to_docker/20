@@ -1,2 +1,1 @@
 docker swarm init --advertise-addr `docker-machine ip Char`
-#Swarm initialized: current node (1uu6dnwz67nz3akqt00ften82) is now a manager.
